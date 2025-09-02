@@ -1,0 +1,174 @@
+@startuml qbert
+skinparam classAttributeIconSize 0
+
+interface IActualizable
+IActualizable : actualizar(dt)
+
+interface IRenderizable
+IRenderizable : renderizar(ctx)
+IRenderizable : zIndex()
+
+interface IEntrada
+IEntrada : leer()
+
+class Comando
+
+class Juego
+Juego : niveles
+Juego : entrada
+Juego : temporizador
+Juego : sonido
+Juego : memoria
+Juego : iniciar()
+Juego : loop()
+Juego : manejarEntrada(c)
+
+class Memoria
+Memoria : estados
+Memoria : guardar(clave_estado)
+Memoria : cargar(clave)
+
+class EstadoJuego
+EstadoJuego : nivelId
+EstadoJuego : puntajeTotal
+EstadoJuego : vidasRestantes
+EstadoJuego : timestamp
+
+class Temporizador
+Temporizador : acumulado
+Temporizador : reiniciar()
+Temporizador : tick(dt)
+
+class Sonido
+Sonido : reproducir(id)
+Sonido : detener(id)
+
+class Nivel
+Nivel : numero
+Nivel : dificultad
+Nivel : etapa
+Nivel : enemigosActivos
+Nivel : iniciar()
+Nivel : terminado()
+
+class Piramide
+Piramide : filas
+Piramide : columnas
+
+class Cubo
+Cubo : posX
+Cubo : posY
+Cubo : colorActual
+Cubo : cambiarColor(c)
+
+class Disco
+Disco : activo
+Disco : usar()
+
+class Dificultad
+class Etapa
+class Color
+
+class Entidad
+Entidad : id
+Entidad : x
+Entidad : y
+Entidad : activa
+Entidad : getPos()
+Entidad : setPos(x_y)
+
+class Jugador
+Jugador : nombre
+Jugador : puntaje
+Jugador : vida
+Jugador : mover(d)
+
+class Qbert
+Qbert : decir(frase)
+
+class Enemigo
+Enemigo : velocidad
+Enemigo : spawn()
+
+class Serpiente
+class Ugg
+class Slick
+class Sam
+
+class Puntaje
+Puntaje : valor
+Puntaje : sumar(p)
+
+class Vida
+Vida : restantes
+Vida : perder()
+Vida : ganar()
+
+class Movimiento
+Movimiento : velX
+Movimiento : velY
+Movimiento : aplicar(dt)
+
+class Salto
+Salto : fuerza
+
+class Colision
+Colision : detectar(a_b)
+
+class Animacion
+Animacion : frame
+Animacion : avanzar()
+
+class Aleatorio
+Aleatorio : nextInt(max)
+
+class Entrada
+Entrada : buffer
+
+class Direccion
+Direccion : dx
+Direccion : dy
+
+Entidad ..|> IActualizable
+Entidad ..|> IRenderizable
+Entrada ..|> IEntrada
+Temporizador ..|> IActualizable
+Animacion ..|> IActualizable
+Movimiento ..|> IActualizable
+
+Jugador --|> Entidad
+Qbert --|> Jugador
+Enemigo --|> Entidad
+Serpiente --|> Enemigo
+Ugg --|> Enemigo
+Slick --|> Enemigo
+Sam --|> Enemigo
+
+Juego *-- "1..*" Nivel
+Juego *-- Temporizador
+Memoria *-- EstadoJuego
+Nivel *-- "1" Piramide
+Piramide *-- "1..*" Cubo
+Jugador *-- Puntaje
+Jugador *-- Vida
+
+Juego o-- Sonido
+Nivel o-- "0..*" Enemigo
+Nivel o-- "0..*" Disco
+Cubo o-- Color
+
+Juego --> Entrada
+Juego --> Memoria
+EstadoJuego --> Nivel
+Nivel --> Dificultad
+Nivel --> Etapa
+Nivel --> Colision
+Entidad --> Movimiento
+Movimiento --> Salto
+Entidad --> Animacion
+Enemigo --> Aleatorio
+Colision --> Sonido
+Movimiento --> Direccion
+Entrada --> Comando
+
+@enduml
