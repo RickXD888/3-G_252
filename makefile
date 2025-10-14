@@ -4,8 +4,8 @@ bin/programa : src/main.cpp include/Foco.hpp include/EstadoFoco.hpp
 run : bin/programa
 	./bin/programa
 
-bin/memoria : src/memoria.cpp
-	c++ src/memoria.cpp -o bin/memoria 
+bin/ejemplo : src/ejemplo.cpp
+	c++ src/ejemplo.cpp -o bin/ejemplo -lftxui-screen -lftxui-dom -lftxui-component
 
-runMemoria : bin/memoria
-	./bin/memoria
+runEjemplo : bin/ejemplo
+	./bin/ejemplo
