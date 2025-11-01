@@ -9,3 +9,10 @@ bin/ejemplo : src/ejemplo.cpp
 
 runEjemplo : bin/ejemplo
 	./bin/ejemplo
+
+bin/animacionperrona : src/animacionperrona.cpp include/*.hpp
+	@mkdir -p bin
+	c++ -Iinclude -o bin/animacionperrona src/animacionperrona.cpp -lftxui-component -lftxui-dom -lftxui-screen
+
+runAnimacionperrona: bin/animacionperrona
+	./bin/animacionperrona
